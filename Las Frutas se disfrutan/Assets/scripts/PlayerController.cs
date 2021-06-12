@@ -12,12 +12,11 @@ public class PlayerController : MonoBehaviour
 
     private Collider2D col;
 
-    [SerializeField] private float speed, jumpSpeed = 2f;
-
+    [SerializeField] private float speed, jumpSpeed;
     [SerializeField] private LayerMask Ground;
 
 
-
+   
     private void Awake()
     {
         // esto crea un objeto de la clse controladorPlayer
