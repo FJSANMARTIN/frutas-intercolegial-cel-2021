@@ -10,7 +10,7 @@ public class motorCintas : MonoBehaviour
     //contiene los prefabs de las cintas
     public GameObject[] contenedorCintas;
 
-    public int speed = 5;
+    public float speed = 5;
 
     //numero que sirve para seleccionar la cinta en aleatorio (opcional)
     public int numeroSelectorDeCintas;
@@ -28,7 +28,7 @@ public class motorCintas : MonoBehaviour
 
     void Start()
     {
-        juegoTerminado = false;
+        
         Iniciar();
     }
 
@@ -39,24 +39,39 @@ public class motorCintas : MonoBehaviour
         CreaCintas();
  
         SpeedNormal();
-        cuentaRegresivaTermino = false;
+        
 
 
     }
 
     void Update()
     {
+        if (numeroContadorCintas >= 10 && numeroContadorCintas <= 19)
+        {
+            IncreaseSpeedLevel1();
+        }
 
+        if (numeroContadorCintas >= 20)
+        {
+            IncreaseSpeedLevel2();
+        }
+
+        if(juegoTerminado == true)
+        {
+            FinalizarJuego();
+        }
     }
 
     private void FixedUpdate()
     {
 
-        if (cuentaRegresivaTermino && juegoTerminado == false)
+        if (cuentaRegresivaTermino == true && juegoTerminado == false)
         {
             MotorCintas.transform.Translate(Vector3.left * speed * Time.deltaTime);
 
         }
+
+
     }
 
     //esta funcion crea las cintas una detras de otra
@@ -103,7 +118,7 @@ public class motorCintas : MonoBehaviour
 
     {
       
-        speed = 10;
+        speed = 2.5f;
        
     }
 
@@ -116,18 +131,14 @@ public class motorCintas : MonoBehaviour
     //se aumentara la velocidad si el contador de carreteras ya va por el 10
     public void IncreaseSpeedLevel1()
     {
-        if (numeroContadorCintas >= 10 && numeroContadorCintas <= 19)
-        {
-            speed = 15;
-        }
+        speed = 3;
+
     }
     //se aumentara la velocidad si el contador de carreteras ya va por el 20
+    
     public void IncreaseSpeedLevel2()
     {
-        if (numeroContadorCintas >= 20)
-        {
-            speed = 20;
-        }
+        speed = 3.5f;
     }
 
     public void FinalizarJuego()
