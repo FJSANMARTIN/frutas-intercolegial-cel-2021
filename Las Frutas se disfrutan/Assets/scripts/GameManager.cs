@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
       *Hacer el ingame Canvas
       *Hacer el pause Canvas
      */
-    private void GameOver()
+    public void GameOver()
     {
         pauseGame = false;
         Ingame = false;
