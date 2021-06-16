@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public bool Ingame;
     public bool gameOver;
     public bool pauseGame;
+    public bool winnGame;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
             PauseGame();
         }
 
-        if(pausa.active == false && gameOver == false)
+        if(pausa.active == false && gameOver == false && winnGame == false)
         {
             
             InGame();
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
 
 
 
-        Debug.Log("El juego esta en modo inGame");
+        
     }
 
 
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
         pauseGame = true;
         Ingame = false;
         gameOver = false;
-        Debug.Log("El juego esta en modo Pausa");
+        
         
     }
 
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
       *Hacer el Game Over canvas
       *Hacer el ingame Canvas
       *Hacer el pause Canvas
+      *Hacer el winGame canvas
      */
     public void GameOver()
     {
@@ -83,12 +85,21 @@ public class GameManager : MonoBehaviour
         gameOver = true;
 
         elMotorCintas.juegoTerminado = true;
-        Debug.Log("El juego esta en modo GameOver");
+        
         
     }
 
 
+    public void winGame()
+    {
+        pauseGame = false;
+        Ingame = false;
+        gameOver = false;
+        winnGame = true;
 
+        elMotorCintas.juegoTerminado = true;
+        
+    }
 
 
 
