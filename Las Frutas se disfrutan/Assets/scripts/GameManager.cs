@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,11 +12,17 @@ public class GameManager : MonoBehaviour
 
     public motorCintas elMotorCintas;
 
+    public Canvas inGameCanvas;
+    public Canvas pauseCanvas;
+    public Canvas gameOverCanvas;
+    public Canvas winCanvas;
+
     public bool Ingame;
     public bool gameOver;
     public bool pauseGame;
     public bool winnGame;
 
+    public GameObject personaje;
     private void Awake()
     {
         instance = this;
@@ -22,32 +30,26 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        elMotorCintas.cuentaRegresivaTermino = true;
+         
+
+        
         InGame();
 
         
     }
     private void Update()
     {
-        //TO DO: despues cambiaremos a button, el space es provisorio
-        if (Input.GetKeyDown("space") && gameOver == false)
-        {
-            PauseGame();
-        }
+        
 
         if(pausa.active == false && gameOver == false && winnGame == false)
         {
             
             InGame();
         }
-        //TO DO: Cuando el personaje se quede sin vidas, o sin tiempo, desde esas
-        //mecanicas independientes cambiaran el estado de la variable gameOver
+    
 
        
-        if (gameOver == true)
-        {
-            GameOver();
-        }
+
     }
     private void InGame()
     {
@@ -55,6 +57,11 @@ public class GameManager : MonoBehaviour
         pauseGame = false;
         gameOver = false;
 
+        pauseCanvas.enabled = false;
+        gameOverCanvas.enabled = false;
+        winCanvas.enabled = false;
+        inGameCanvas.enabled = true;
+        
 
 
 
@@ -62,22 +69,20 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void PauseGame()
+    public void PauseGame()
     {
         pausa.pausarJuego();
         pauseGame = true;
         Ingame = false;
         gameOver = false;
-        
-        
+
+        pauseCanvas.enabled = true;
+        gameOverCanvas.enabled = false;
+        winCanvas.enabled = false;
+        inGameCanvas.enabled = false;
     }
 
-    /*TO DO:
-      *Hacer el Game Over canvas
-      *Hacer el ingame Canvas
-      *Hacer el pause Canvas
-      *Hacer el winGame canvas
-     */
+    
     public void GameOver()
     {
         pauseGame = false;
@@ -85,8 +90,14 @@ public class GameManager : MonoBehaviour
         gameOver = true;
 
         elMotorCintas.juegoTerminado = true;
-        
-        
+
+        pauseCanvas.enabled = false;
+        gameOverCanvas.enabled = true;
+        winCanvas.enabled = false;
+        inGameCanvas.enabled = false;
+
+        pausa.pausarJuego();
+        Destroy(personaje);
     }
 
 
@@ -98,11 +109,24 @@ public class GameManager : MonoBehaviour
         winnGame = true;
 
         elMotorCintas.juegoTerminado = true;
+
+        pauseCanvas.enabled = false;
+        gameOverCanvas.enabled = false;
+        winCanvas.enabled = true;
+        inGameCanvas.enabled = false;
+
+        pausa.pausarJuego();
         
+        Destroy(personaje);
+
     }
 
 
-
-
+   //funcion para reiniciar el nivel
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene("Level1");
+        PauseGame();
+    }
 
 }

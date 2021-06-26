@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class puntos : MonoBehaviour
 {
     public GameObject  puntosNivel;
 
-    
+    public Text textoPuntos;
 
     public int currentPoints;
 
@@ -47,6 +47,8 @@ public class puntos : MonoBehaviour
         {
             GameManager.instance.winGame();
         }
+
+        textoPuntos.text = currentPoints.ToString();
     }
 
     public int AddPoints(int combo)

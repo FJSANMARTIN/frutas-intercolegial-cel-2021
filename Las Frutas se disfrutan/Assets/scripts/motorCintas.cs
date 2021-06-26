@@ -59,6 +59,7 @@ public class motorCintas : MonoBehaviour
         if(juegoTerminado == true)
         {
             FinalizarJuego();
+            
         }
     }
 

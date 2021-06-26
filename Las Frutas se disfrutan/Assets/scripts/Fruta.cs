@@ -11,6 +11,8 @@ public class Fruta : MonoBehaviour
     private SpriteRenderer laFruta;
 
     public Combos combos;
+
+    public GameObject frutaADestruir;
     void Start()
     {
         laFruta = GetComponent<SpriteRenderer>();
@@ -32,9 +34,8 @@ public class Fruta : MonoBehaviour
 
             combos.AddTemp(frutaPoint);
 
-            //TO DO: tenemos que destruir el gameObject
-            laFruta.enabled = false;
-
+            
+            Destroy(frutaADestruir);
            
 
         }

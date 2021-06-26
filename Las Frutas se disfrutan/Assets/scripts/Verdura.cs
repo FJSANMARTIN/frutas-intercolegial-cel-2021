@@ -11,6 +11,8 @@ public class Verdura : MonoBehaviour
     public Combos combos;
 
     private SpriteRenderer laVerdura;
+
+    public GameObject verduraADestruir;
     void Start()
     {
         laVerdura = GetComponent<SpriteRenderer>();
@@ -32,9 +34,9 @@ public class Verdura : MonoBehaviour
 
             combos.AddTemp(VerduraPoint);
 
-            laVerdura.enabled = false;
+            Destroy(verduraADestruir);
 
-            
+
         }
     }
 }
