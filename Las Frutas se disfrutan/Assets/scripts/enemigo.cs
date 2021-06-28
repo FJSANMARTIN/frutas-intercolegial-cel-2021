@@ -10,9 +10,9 @@ public class enemigo : MonoBehaviour
     {
         if (info.gameObject.CompareTag("Quita Vida"))
         {
-            Debug.Log("entro en la funcion");
+            
             vida.loseHealth();
-            Debug.Log("perdiste 1 vida, te quedan " + vida.currentHealth);
+            
         }
     }
 

@@ -10,7 +10,7 @@ public class Combos : MonoBehaviour
     private int[] combo3 = new int[] { 2, 2, 1, 1 };
     private int[] combo4 = new int[] { 1, 1, 2, 2 };
     private int[] combo5 = new int[] { 2, 1, 2, 1 };
-    [SerializeField]private int[] combo6 = new int[] { 1, 2, 1, 2 };
+    private int[] combo6 = new int[] { 1, 2, 1, 2 };
 
     //se crea una array temporal en donde se almacena lo que el player toca
     public int[] temp = new int[4];
@@ -29,6 +29,10 @@ public class Combos : MonoBehaviour
     [SerializeField] int counC6 = 0;
 
     public puntos Puntos;
+
+    bool seEncontroIgualdad;
+
+    bool seTerminoelCiclo;
     void Start()
     {
         
@@ -38,7 +42,7 @@ public class Combos : MonoBehaviour
     void Update()
     {
         //si los cuatro valores fueron rellenados
-        //TO DO: hay que comprobar si se cambian los valores del selleno o si solo se cambia en el addtemp
+        
         if(seLleno == true)
         {
             //se crea el bucle que va a comparar a todos los combos
@@ -54,7 +58,7 @@ public class Combos : MonoBehaviour
                     }
                     k++;
                 }
-
+               
             }
 
             for (int k = 0; k < 4; k++)
@@ -69,6 +73,7 @@ public class Combos : MonoBehaviour
                     }
                     k++;
                 }
+               
             }
             for (int k = 0; k < 4; k++)
             {
@@ -82,6 +87,7 @@ public class Combos : MonoBehaviour
                     }
                     k++;
                 }
+               
             }
             for (int k = 0; k < 4; k++)
             {
@@ -95,6 +101,8 @@ public class Combos : MonoBehaviour
                     }
                     k++;
                 }
+                
+
             }
             for (int k = 0; k < 4; k++)
             {
@@ -108,6 +116,8 @@ public class Combos : MonoBehaviour
                     }
                     k++;
                 }
+                
+
             }
             for (int k = 0; k < 4; k++)
             {
@@ -116,19 +126,21 @@ public class Combos : MonoBehaviour
                 {
                     if (temp[k] == combo6[q])
                     {
-                        counC6 = counC6 + 1;
+                        counC6++;
                         
                     }
 
                     k++;
                 }
-
+                
             }
-
+            seTerminoelCiclo = true;
         }
 
         if(counC1 == 4)
         {
+            seEncontroIgualdad = true;
+            seTerminoelCiclo = false;
             Puntos.AddPoints(1);
             seLleno = false;
             ultimaPosicion = 0;
@@ -138,6 +150,8 @@ public class Combos : MonoBehaviour
         }
         if (counC2 == 4)
         {
+            seEncontroIgualdad = true;
+            seTerminoelCiclo = false;
             Puntos.AddPoints(2);
             seLleno = false;
             ultimaPosicion = 0;
@@ -146,6 +160,8 @@ public class Combos : MonoBehaviour
         }
         if (counC3 == 4)
         {
+            seEncontroIgualdad = true;
+            seTerminoelCiclo = false;
             Puntos.AddPoints(3);
             seLleno = false;
             ultimaPosicion = 0;
@@ -154,6 +170,8 @@ public class Combos : MonoBehaviour
         }
         if (counC4 == 4)
         {
+            seEncontroIgualdad = true;
+            seTerminoelCiclo = false;
             Puntos.AddPoints(4);
             seLleno = false;
             ultimaPosicion = 0;
@@ -162,6 +180,8 @@ public class Combos : MonoBehaviour
         }
         if (counC5 == 4)
         {
+            seEncontroIgualdad = true;
+            seTerminoelCiclo = false;
             Puntos.AddPoints(5);
             seLleno = false;
             ultimaPosicion = 0;
@@ -170,13 +190,30 @@ public class Combos : MonoBehaviour
         }
         if (counC6 == 4)
         {
+            seEncontroIgualdad = true;
+            seTerminoelCiclo = false;
             Puntos.AddPoints(6);
             seLleno = false;
             ultimaPosicion = 0;
             resetCounts();
             resetArrayTemporal();
         }
-        //falta el que es cuando todos son 0 cuando se toco el obstaculo
+        //TO DO:falta el que es cuando todos son 0 cuando se toco el obstaculo
+
+
+
+        //este else siempre estara ultimo porque significa que si ninguno de los de arriba se 
+        //ejecuto , ninguno obtuvo 4 digitos
+        else if(seEncontroIgualdad == false && seTerminoelCiclo == true)
+        {
+            seLleno = false;
+            seTerminoelCiclo = false;
+            ultimaPosicion = 0;
+            resetCounts();
+            resetArrayTemporal();
+            Debug.Log("No se realizo ningun combo");
+        }
+        
     }
 
 
@@ -187,11 +224,13 @@ public class Combos : MonoBehaviour
     {
         if(seLleno == false)
         {
+            seEncontroIgualdad = false;
             //TO DO: si el parametro es 3 significa que toco un obstaculo y eso hace que se
             //reinicie el combo
             if(variableFOV == 3)
             {
                 resetArrayTemporal();
+                resetCounts();
                 seLleno = true;
             }
             //aca se pregunta la ultima posicion rellenada del array

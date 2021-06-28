@@ -46,4 +46,19 @@ public class Cronometro : MonoBehaviour
 
 
     }
+
+
+
+    public void ImagenMasTiempo()
+    {
+        masTiempo.CrossFadeAlpha(1, 0.5f, false);
+        StartCoroutine(CierroImagenMasTiempo());
+    }
+
+    IEnumerator CierroImagenMasTiempo()
+    {
+        yield return new WaitForSeconds(1);
+        masTiempo.CrossFadeAlpha(0, 0.5f, false);
+    }
+    
 }
