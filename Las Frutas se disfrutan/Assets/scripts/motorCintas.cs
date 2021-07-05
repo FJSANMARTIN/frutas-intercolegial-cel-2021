@@ -25,11 +25,14 @@ public class motorCintas : MonoBehaviour
 
     public bool juegoTerminado;
 
+    public bool piezaInic;
+
 
     void Start()
     {
         
         Iniciar();
+        
     }
 
     public void Iniciar()
@@ -79,7 +82,7 @@ public class motorCintas : MonoBehaviour
     public void CreaCintas()
     {
 
-        numeroSelectorDeCintas = Random.Range(0, 3);
+        numeroSelectorDeCintas = Random.Range(0, 6); 
 
         GameObject Cinta = (GameObject)Instantiate(contenedorCintas[numeroSelectorDeCintas],
                                                         new Vector3(17,0,0) , transform.rotation);       
@@ -94,19 +97,38 @@ public class motorCintas : MonoBehaviour
 
         Cinta.transform.parent = MotorCintas.transform;
 
-
-        GameObject piezaAux = GameObject.Find("Cinta"+(numeroContadorCintas - 1));
-
+        
         
 
-        Cinta.transform.position = new Vector3(piezaAux.GetComponent<Renderer>().bounds.size.x +
-                                                 piezaAux.transform.position.x, transform.position.y + -4,
-                                                 transform.position.z);
+        if(piezaInic == true)
+        {
+
+            
+            GameObject piezaAux = GameObject.Find("Cinta" + (numeroContadorCintas - 1));
 
 
 
+            Cinta.transform.position = new Vector3(piezaAux.GetComponent<Renderer>().bounds.size.x +
+                                                     piezaAux.transform.position.x, transform.position.y + -4,
+                                                     transform.position.z);
+        }
+
+        if (piezaInic == false)
+        {
+
+            
+            GameObject piezaInici = GameObject.Find("Cinta inicial");
 
 
+
+            Cinta.transform.position = new Vector3(piezaInici.GetComponent<Renderer>().bounds.size.x +
+                                                     piezaInici.transform.position.x, transform.position.y + -4,
+                                                     transform.position.z);
+
+            piezaInic = true;
+        }
+
+        
 
 
     }
